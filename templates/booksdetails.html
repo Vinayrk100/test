@@ -1,0 +1,124 @@
+<html>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+</style>
+</head>
+
+
+
+   <body>
+<!--      <form action = "http://localhost:5000/recommendation?uname={{uname}}" method = "post">-->
+ <form action = "/recommendation?uname={{uname}}" method = "post">
+<!--       <form action = "http://localhost:5000/recommendation?uid={{uid}}" method = "post">-->
+         <h3>{{uname}} , our records show you are {{segment}} customer , you are eligible for : {{ promo[0] }}</h3>
+
+             <h3>Already Purchased books</h3>
+
+            {% for ap in purchased_books %}
+
+               <p><input type = "submit" name = "title" value="{{ ap[5] }}"
+                         style="height:50px; width:200px" /></p>
+           <img src="{{ap[8]}}" style="width:10%"/>
+                <li>Author : {{ ap[1] }}</li>
+                <li>Genre : {{ ap[7] }}</li>
+                 <li>Book Pages : {{ ap[2] }}</li>
+                <li>Price : {{ ap[9] }}</li>
+                <li>Rating : {{ ap[0] }}</li>
+            {% endfor %}
+
+                   <h2>Browse a book</h2>
+        <input type="hidden" name="uid" value={{uid}} />
+        <input type="hidden" name="uname" value={{uname}} />
+
+
+<!--     start 04/20-->
+<!--             <p>Book Title: <input type = "text" name="custom_title"/></p>-->
+           <p>Book Title: <input type = "text" name="custom_title"/></p>
+
+<!--             <label for="cars">Genre:</label>-->
+<!--          <select  name="genre"  id="Genre">-->
+<!--          <option value="fantasy">fantasy</option>-->
+<!--          <option value="philosophy">philosophy</option>-->
+<!--          <option value="autobiography">autobiography</option>-->
+<!--          <option value="fiction">fiction</option>-->
+<!--           <option value="crime">crime</option>-->
+<!--        </select>-->
+
+<!--            <label for="cars">Language:</label>-->
+<!--              <select  name="lan"  id="Language">-->
+<!--          <option value="English">English</option>-->
+<!--          <option value="English-US">English-US</option>-->
+<!--          <option value="English-CA">English-CA</option>-->
+<!--          <option value="French">French</option>-->
+<!--           <option value="Vietnamese">Vietnamese</option>-->
+<!--        </select>-->
+
+<!--            <label for="cars">Price Range:</label>-->
+<!--              <select  name="price"  id="Price Range">-->
+<!--          <option value="range1">15-25</option>-->
+<!--          <option value="philosophy">25-35</option>-->
+<!--          <option value="autobiography">35-45</option>-->
+<!--          <option value="fiction">45-55</option>-->
+<!--           <option value="crime">55-65</option>-->
+<!--           <option value="crime">65-85</option>-->
+<!--        </select>-->
+
+          <p><input type = "submit" name= "title" value = "Submit" />
+<!--             end 04/20-->
+
+ <h3> We have few books suggestions for you , based on your reading history </h3>
+          <h3>Recommendation based on Genres</h3>
+            {% for g in recommendations_genre %}
+              <p><input type = "submit" name = "title"  value="{{ g[9] }}"
+               style="height:50px; width:200px"/></p>
+<!--              <li>Title: {{ g[9] }}</li>-->
+               <img src="{{g[12]}}" width="150" height="200"/>
+              <li>Author: {{ g[4] }}</li>
+              <li>Genre: {{ g[11] }}</li>
+               <li>Price: {{ g[15] }}</li>
+              <li>Rating: {{ g[3] }}</li>
+
+            {% endfor %}
+
+              <h3>Recommendation based on authors</h3>
+            {% for a in recommendations_author %}
+                  <p><input type = "submit" name = "title" value="{{ a[9] }}"
+                  style="height:50px; width:200px"/></p>
+<!--          <li>Title: {{ a[9] }}</li>-->
+               <img src="{{a[12]}}" width="150" height="200"/>
+              <li>Author: {{ a[4] }}</li>
+              <li>Genre: {{ a[11] }}</li>
+               <li>Price: {{ a[15] }}</li>
+              <li>Rating: {{ a[3] }}</li>
+            {% endfor %}
+
+                  <h3>Recommendation based on pages</h3>
+            {% for bp in recommendations_bookpages %}
+                      <p><input type = "submit" name = "title" value="{{ bp[9] }}"
+                      style="height:50px; width:200px"/></p>
+<!--        <li>Title: {{ bp[9] }}</li>-->
+               <img src="{{bp[12]}}" width="150" height="200" />
+              <li>Author: {{ bp[4] }}</li>
+              <li>Genre: {{ bp[11] }}</li>
+               <li>Price: {{ bp[15] }}</li>
+              <li>Rating: {{ bp[3] }}</li>
+            {% endfor %}
+      </form>
+   </body>
+</html>
